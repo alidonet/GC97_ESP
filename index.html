@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>GC97</title>
+    <meta name="robots" content="none" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <style type="text/css">
+        html {
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        body {
+            height: 100%;
+            color: #333333;
+            background-color: rgba(0, 108, 150, 0.07);
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 400;
+            font-size: 0.95rem;
+            line-height: 1.1;
+            min-width: 320px;
+            min-height: 280px;
+            /*overflow: hidden;*/
+            /*overflow: hidden;*/
+            /*box-sizing: border-box;*/
+
+        }
+
+        /* Page preloader */
+        #preloader {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            display: none;
+            z-index: 999;
+        }
+
+            #preloader.visible {
+                display: block;
+            }
+
+        .preloader-content {
+            transform: translateY(-50%);
+            top: 50%;
+            position: absolute;
+            width: 100%;
+            color: #abccff;
+            text-align: center;
+        }
+
+        .preloader .preloader-box {
+            padding: 2em 1ex;
+            text-wrap: none;
+            white-space: nowrap;
+            width: 60%;
+            min-width: 140px;
+            max-width: 300px;
+        }
+
+        #preloader-text {
+            transform: translateY(-50%);
+            top: 50%;
+            margin-top: 3em;
+            font-size: 0.9em;
+            font-weight: 400;
+            position: absolute;
+            color: #10629d;
+            width: 99%;
+            /*width: calc(100% - 224px);*/
+            text-align: center;
+        }
+
+        .preloader-content label {
+            font-size: 2.2em;
+            padding: 0.5ex;
+            opacity: 0;
+            display: inline-block;
+        }
+
+            .preloader-content label:after {
+                font-family: Arial;
+                content: '\2022';
+            }
+
+        .preloader-content label:nth-child(1) {
+            -webkit-animation: loader 3s 600ms infinite ease-in-out;
+            animation: page_loader 3s 600ms infinite ease-in-out;
+        }
+
+        .preloader-content label:nth-child(2) {
+            -webkit-animation: loader 3s 500ms infinite ease-in-out;
+            animation: page_loader 3s 500ms infinite ease-in-out;
+        }
+
+        .preloader-content label:nth-child(3) {
+            -webkit-animation: loader 3s 400ms infinite ease-in-out;
+            animation: page_loader 3s 400ms infinite ease-in-out;
+        }
+
+        .preloader-content label:nth-child(4) {
+            -webkit-animation: loader 3s 300ms infinite ease-in-out;
+            animation: page_loader 3s 300ms infinite ease-in-out;
+        }
+
+        .preloader-content label:nth-child(5) {
+            -webkit-animation: loader 3s 200ms infinite ease-in-out;
+            animation: page_loader 3s 200ms infinite ease-in-out;
+        }
+
+        .preloader-content label:nth-child(6) {
+            -webkit-animation: loader 3s 100ms infinite ease-in-out;
+            animation: page_loader 3s 100ms infinite ease-in-out;
+        }
+
+        @keyframes page_loader {
+            0% {
+                opacity: 0;
+                transform: translateX(-80px) scale(0.5);
+            }
+
+            33% {
+                opacity: 1;
+                transform: translateX(0px) scale(2);
+            }
+
+            66% {
+                opacity: 1;
+                transform: translateX(0px) scale(2);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateX(80px) scale(0.5);
+            }
+        }
+
+        @-webkit-keyframes page_loader {
+            0% {
+                opacity: 0;
+                -webkit-transform: translateX(-80px);
+            }
+
+            33% {
+                opacity: 1;
+                -webkit-transform: translateX(0px);
+            }
+
+            66% {
+                opacity: 1;
+                -webkit-transform: translateX(0px);
+            }
+
+            100% {
+                opacity: 0;
+                -webkit-transform: translateX(80px);
+            }
+        }
+
+        #main-area {
+        }
+
+        #content {
+            /*padding: 1ex;*/
+            width: 100%;
+            text-align: center;
+            white-space: nowrap;
+            text-wrap: none;
+        }
+
+        #header {
+            display: block;
+            top: 0;
+            left: 0px;
+            background-color: rgba(0, 93, 155, 0.1);
+            border-bottom: 1px solid #fafafa;
+            padding: 1ex;
+            font-size: 0.9em;
+        }
+
+        #footer {
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            left: 0px;
+            background-color: rgba(0, 93, 155, 0.1);
+            border-top: 1px solid #fafafa;
+            padding: 1ex;
+            font-size: 0.9em;
+        }
+
+        #overlay {
+            width: 100%;
+            height: 100%;
+            z-index: 998;
+            display: none;
+            background: #f0f5ff;
+            opacity: 0.7;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .overlay #overlay {
+            display: block;
+        }
+
+        /*.overlay a, .overlay > a, .overlay #main-area.input {
+            pointer-events: none;
+            cursor: default;
+            color: red;
+        }*/
+
+        .overlay #main-area {
+            opacity: 0.5;
+            /*color: transparent !important;
+            text-shadow: 0 0 4px rgba(0,0,0,0.5);*/
+        }
+
+        .shadow {
+            box-shadow: 3px 3px 4px 3px rgba(150, 150, 150, 0.3);
+        }
+
+        .visible {
+            display: block;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .popup {
+        }
+
+
+        #popup-content {
+            padding: 1ex;
+        }
+
+        #popup-close {
+            text-align: right;
+            margin: 3px 3px 0px 0px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+
+        .round-box {
+            text-align: center;
+            vertical-align: middle;
+            min-width: 70px;
+            min-height: 70px;
+            /*padding: 2em;*/
+            border: 1px solid #DDDDDD;
+            background: #ffffff;
+            border-radius: 6px;
+            box-shadow: 1px 1px 10px 2px rgba(150, 150, 150, 0.1);
+            /*margin-bottom: 1em;*/
+            z-index: 9999;
+            transition: color .5s linear, background .5s linear, border .5s linear;
+        }
+
+            .round-box:hover {
+                /*background: $white;*/
+                border: 1px solid #AAAAAA;
+                -o-transition: color .5s linear,background .5s linear,border .5s linear;
+                -moz-transition: color .5s linear,background .5s linear,border .5s linear;
+                -webkit-transition: color .5s linear,background .5s linear,border .5s linear;
+                transition: color .5s linear,background .5s linear,border .5s linear;
+                box-shadow: 2px 2px 15px 2px rgba(150, 150, 150, 0.3);
+            }
+
+        .center {
+            position: absolute;
+            margin: auto;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 100px;
+        }
+
+
+        @media only screen and (max-width: 800px) {
+
+            body {
+                font-size: 0.9rem;
+            }
+
+            /*.preloader-content {
+                width: calc(100% - 132px);
+                padding: 0 50px;
+            }*/
+
+                .preloader-content label {
+                    /*font-size: 1.75rem;*/
+                    /*padding: 1.1ex;*/
+                }
+        }
+
+        @media only screen and (max-width: 600px) {
+            body {
+                font-size: 0.8rem;
+            }
+
+            /*.preloader-content {
+                width: calc(100% - 80px);
+                padding: 0 30px;
+            }*/
+
+                .preloader-content label {
+                    /*font-size: 1.5rem;*/
+                    /*padding: 1ex;*/
+                }
+
+        }
+
+    </style>
+</head>
+<body id="body" class="overlay"><div id="overlay"></div>
+    <form id="theForm" name="theForm" method="post" enctype="multipart/form-data">
+        <div id="preloader" class="preloader visible"><div class="preloader-box round-box center"><div class="preloader-content"><label></label><label></label><label></label><label></label><label></label></div><div id="preloader-text">Loading...</div></div></div>
+        <div id="popup" class="popup round-box center hidden"><div id="popup-close"><a href="" onclick="popup(false); return false;">X</a></div><div id="popup-content"></div></div>
+        <div id="main-area">
+            <div id="header"><b>GC-97 meter</b> <span style="font-size:0.85em"> [v.0.2]</span><span style="float:right"><a href="" onclick="settings(true); return false;">Settings</a></span></div>
+            <div id="content" class="content center">
+
+                This is just a <a href="">link</a> and text.
+
+
+            </div>
+            <div id="footer">Wi-Fi: | IP: | Memory: | MQTT: | GC97: | Loaded at: </div>
+        </div>
+        <script type="text/javascript">
+
+            function loader(vis, msg) {
+                overlay(vis);
+                var b = document.getElementById('preloader');
+                if ((b)) {
+                    if ((vis)) {
+                        b.classList.add("visible");
+                        b.classList.remove("hidden");
+                        var m = document.getElementById('preloader-text');
+                        if ((m)) m.innerHTML = msg;
+                    } else {
+                        b.classList.remove("visible");
+                        b.classList.add("hidden");
+                    }
+                }
+            }
+
+            function overlay(vis) {
+                var d = document.getElementById('body');
+                if ((d)) {
+                    if ((vis)) d.classList.add("overlay"); else d.classList.remove("overlay");
+                }
+                theForm.disabled = !vis;
+            }
+
+            function popup(vis) {
+                var d = document.getElementById('popup');
+                if ((d)) {
+                    overlay(vis);
+                    if ((vis)) {
+                        d.classList.add("visible");
+                        d.classList.remove("hidden");
+                        return document.getElementById('popup-content')
+                    } else {
+                        d.classList.remove("visible");
+                        d.classList.add("hidden");
+                    }
+                }
+            }
+
+            function settings(vis) {
+                var p = popup(vis);
+                if ((vis)) {
+                    p.innerHTML = "Settings";
+                }
+            }
+
+            loader(true, "Please wait...");
+
+            window.onload = function () {
+                setTimeout(function () {
+                    loader(false);
+                }, 250);
+            };
+
+        </script>
+    </form>
+</body>
+</html>
