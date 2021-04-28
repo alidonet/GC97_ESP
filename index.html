@@ -494,10 +494,10 @@
             line-height: 1.2;
         }
 
-        #not_connected a {
-            color: #9cb1b5;
-            text-decoration: none;
-        }
+            #not_connected a {
+                color: #9cb1b5;
+                text-decoration: none;
+            }
 
         #gc_temp {
             position: absolute;
@@ -796,7 +796,7 @@
                         </a>
                     </div>
                     <div id="version" style="position: absolute; right:4em; bottom:0.8em; text-align:right; font-size: 0.85em; vertical-align: middle; opacity: 0.8;" title="(C) Alexander Domanov, 2021">
-                        ver. 210428
+                        ver. 210429
                     </div>
                 </div>
             </div>
@@ -805,10 +805,11 @@
                 var data = null;
 
                 var is_connected = false;
+                var has_popup = false;
 
                 const batt_width = 4.5;
                 const voltage_alert = 11.5;
-                const refresh_timeout = 30000;      // reload in 30 secs if no data/connection;
+                const refresh_timeout = 300000;      // reload in 30 secs if no data/connection;
                 const reboot_timeout = 12000;       // timeout till page will be refresh when reboot the ESP remotely;
 
                 function loadData() {
@@ -843,7 +844,7 @@
                             settings(true);
                         } else {
                             setTimeout(function () {
-                                if (!is_connected) reload();
+                                if (!is_connected && !has_popup) reload();
                             }, refresh_timeout);
                         }
                     }
@@ -898,7 +899,7 @@
                             val = data.battery[data_id];
                             if (points != "undefined" && points != 0) val = parseFloat(val).toFixed(points);
                         }
-                        d.innerHTML = val + (has_data ? "<span class='" + (unit == "%" ? "" : "gc_unit") + "'>" + unit + "</span>": "");
+                        d.innerHTML = val + (has_data ? "<span class='" + (unit == "%" ? "" : "gc_unit") + "'>" + unit + "</span>" : "");
                     }
                 }
 
@@ -966,6 +967,7 @@
                 function popup(vis, options) {  // options: title, x-close, width, height, buttons
                     var d = document.getElementById('popup');
                     if ((d)) {
+                        has_popup = (vis);
                         overlay(vis);
                         if ((vis)) {
                             d.classList.add("visible");
@@ -1008,7 +1010,9 @@
                 function isIP(ip) {
                     if (typeof (ip) !== 'string') return false;
                     if (!ip.match(/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/)) return false;
-                    return ip.split('.').filter(octect => (octect >= 0 && octect <= 255)).length === 4;
+                    var cnt = 0;
+                    ip.split('.').filter(function (octect) { var pass = (octect >= 0 && octect <= 255); if (pass) cnt++; return pass });
+                    return (cnt == 4);
                 }
 
                 function saveOptions() {
