@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>GC97 meter</title>
+    <meta name="viewport" content="width=device-width">
     <!--<meta http-equiv="Refresh" content="120" />-->
     <meta name="robots" content="none" />
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
@@ -47,76 +48,34 @@
             }
 
         .preloader-content {
-            transform: translateY(-50%);
-            top: 50%;
+            transform: translateY(-35%);
+            top: 35%;
+            left: 0%;
             position: absolute;
             width: 100%;
-            color: #abccff;
+            color: #69c4e1;
             text-align: center;
         }
 
         .preloader .preloader-box {
-            padding: 2em 1ex;
+            padding: 1em 1em;
             text-wrap: none;
             white-space: nowrap;
-            width: 60%;
-            min-width: 140px;
-            max-width: 300px;
+            /*width: 60%;*/
+            min-width: 160px;
+            max-width: 200px;
         }
 
         #preloader-text {
-            transform: translateY(-50%);
-            top: 50%;
-            margin-top: 3em;
+            transform: translateY(-75%);
+            top: 75%;
             font-size: 0.9em;
             font-weight: 400;
             position: absolute;
             color: #10629d;
-            width: 99%;
+            width: calc(100% - 2em);
             text-align: center;
         }
-
-        .preloader-content label {
-            font-size: 2.2em;
-            padding: 0.5ex;
-            opacity: 0;
-            display: inline-block;
-        }
-
-            .preloader-content label:after {
-                font-family: Arial;
-                content: '\2022';
-            }
-
-            .preloader-content label:nth-child(1) {
-                -webkit-animation: loader 3s 600ms infinite ease-in-out;
-                animation: page_loader 3s 600ms infinite ease-in-out;
-            }
-
-            .preloader-content label:nth-child(2) {
-                -webkit-animation: loader 3s 500ms infinite ease-in-out;
-                animation: page_loader 3s 500ms infinite ease-in-out;
-            }
-
-            .preloader-content label:nth-child(3) {
-                -webkit-animation: loader 3s 400ms infinite ease-in-out;
-                animation: page_loader 3s 400ms infinite ease-in-out;
-            }
-
-            .preloader-content label:nth-child(4) {
-                -webkit-animation: loader 3s 300ms infinite ease-in-out;
-                animation: page_loader 3s 300ms infinite ease-in-out;
-            }
-
-            .preloader-content label:nth-child(5) {
-                -webkit-animation: loader 3s 200ms infinite ease-in-out;
-                animation: page_loader 3s 200ms infinite ease-in-out;
-            }
-
-            .preloader-content label:nth-child(6) {
-                -webkit-animation: loader 3s 100ms infinite ease-in-out;
-                animation: page_loader 3s 100ms infinite ease-in-out;
-            }
 
         #main-area {
         }
@@ -139,6 +98,7 @@
             vertical-align: middle;
             font-size: 0.9em;
             height: 2.2em;
+            z-index: 2
         }
 
             #header .icon, #footer .icon {
@@ -155,6 +115,7 @@
             border-top: 1px solid #ffffff;
             padding: 1ex 1em;
             font-size: 0.9em;
+            z-index: 2;
         }
 
         #overlay {
@@ -529,6 +490,7 @@
 
         #gc_batt_body {
             border: 3px solid #333333;
+            border-radius: 2px;
             /*border-left: 1em solid #333333;*/
             width: 4.7em;
             height: 1.25em;
@@ -620,6 +582,10 @@
         }
 
         .spin {
+            animation: spin 2s linear infinite;
+        }
+
+        .spin-hourglass {
             animation: spin 4s ease-in-out infinite;
         }
 
@@ -700,6 +666,7 @@
             .gc_case {
                 transform: scale(0.95);
             }
+
         }
 
         @media only screen and (max-width: 600px) {
@@ -715,13 +682,20 @@
             .gc_case {
                 transform: scale(0.85);
             }
+
+            #header, #footer {
+                font-size: 0.85em;
+            }
         }
     </style>
 </head>
 <body id="body" class="overlay">
     <div id="overlay"></div>
     <form id="theForm" name="theForm" method="post" enctype="multipart/form-data">
-        <div id="preloader" class="preloader visible"><div class="preloader-box round-box center"><div class="preloader-content"><label></label><label></label><label></label><label></label><label></label></div><div id="preloader-text">Loading...</div></div></div>
+        <div id="preloader" class="preloader visible"><div class="preloader-box round-box center">
+            <div class="preloader-content"><svg width="3em" height="3em" class="spin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"></path></svg></div>
+            <div id="preloader-text">Loading...</div>
+        </div></div>
         <div id="popup" class="popup round-box center hidden shadow">
             <div id="popup-header">
                 <span id="popup-header-content"></span>
@@ -751,7 +725,7 @@
 
                 <div class="round-box center gc_case">
                     <a href="" onclick="settings(true); return false;" class="gc_buttons" title="Settings"><label></label><label style="margin-top:80%;"></label></a><div id="gc_screen" class="gc_screen">
-                        <div id="not_connected" class="hidden"><a href="" onclick="settings(true); return false;" title="Click to edit the connection settings"><svg class="spin" width="2em" height="2em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M360 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24 0 90.965 51.016 167.734 120.842 192C75.016 280.266 24 357.035 24 448c-13.255 0-24 10.745-24 24v16c0 13.255 10.745 24 24 24h336c13.255 0 24-10.745 24-24v-16c0-13.255-10.745-24-24-24 0-90.965-51.016-167.734-120.842-192C308.984 231.734 360 154.965 360 64c13.255 0 24-10.745 24-24V24c0-13.255-10.745-24-24-24zm-75.078 384H99.08c17.059-46.797 52.096-80 92.92-80 40.821 0 75.862 33.196 92.922 80zm.019-256H99.078C91.988 108.548 88 86.748 88 64h208c0 22.805-3.987 44.587-11.059 64z"></path></svg><br />Not connected</a></div>
+                        <div id="not_connected" class="hidden"><a href="" onclick="settings(true); return false;" title="Click to edit the connection settings"><svg class="spin-hourglass" width="2em" height="2em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M360 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24 0 90.965 51.016 167.734 120.842 192C75.016 280.266 24 357.035 24 448c-13.255 0-24 10.745-24 24v16c0 13.255 10.745 24 24 24h336c13.255 0 24-10.745 24-24v-16c0-13.255-10.745-24-24-24 0-90.965-51.016-167.734-120.842-192C308.984 231.734 360 154.965 360 64c13.255 0 24-10.745 24-24V24c0-13.255-10.745-24-24-24zm-75.078 384H99.08c17.059-46.797 52.096-80 92.92-80 40.821 0 75.862 33.196 92.922 80zm.019-256H99.078C91.988 108.548 88 86.748 88 64h208c0 22.805-3.987 44.587-11.059 64z"></path></svg><br />Not connected</a></div>
                         <div style="width:100%; height:100%;">
                             <div id="gc_temp" title="Temperature"></div>
                             <div id="gc_batt_icon" title="SOC (battery level)">
@@ -795,7 +769,7 @@
                             </div>
                         </a>
                     </div>
-                    <div id="version" style="position: absolute; right:4em; bottom:0.8em; text-align:right; font-size: 0.85em; vertical-align: middle; opacity: 0.8;" title="(C) Alexander Domanov, 2021">
+                    <div id="version" class="nowide600" style="position: absolute; right:4em; bottom:0.8em; text-align:right; font-size: 0.85em; vertical-align: middle; opacity: 0.8;" title="(C) Alexander Domanov, 2021">
                         ver. 210429
                     </div>
                 </div>
@@ -807,7 +781,7 @@
                 var is_connected = false;
                 var has_popup = false;
 
-                const batt_width = 4.5;
+                const batt_width = 4.3;
                 const voltage_alert = 11.5;
                 const refresh_timeout = 300000;      // reload in 30 secs if no data/connection;
                 const reboot_timeout = 12000;       // timeout till page will be refresh when reboot the ESP remotely;
@@ -828,7 +802,7 @@
 
                 function onDataLoaded(res) {
                     loader(false);
-                    data = { "status": { "wifi": { "name": "Wireless", "status": true }, "ip": { "name": "192.168.0.141", "status": true }, "mqtt": { "name": "192.168.0.20", "status": true }, "gc97": { "name": "CRC Error", "status": false } }, "battery": { "voltage": 12.12, "current": -1.25, "charging": true, "power": 6.574, "capacity": 24.567, "time": 34124, "soc": 90.3, "temp": 23.45 } };
+                    data = { "status": { "wifi": { "name": "Wireless", "status": true }, "ip": { "name": "192.168.0.141", "status": true }, "mqtt": { "name": "192.168.0.20", "status": true }, "gc97": { "name": "CRC Error", "status": false } }, "battery": { "voltage": 12.12, "current": -1.25, "charging": true, "power": 6.574, "capacity": 24.567, "time": 34124, "soc": 90.5, "temp": 23.45 } };
 
                     is_connected = (data != null && typeof data["battery"] != "undefined" && typeof data["status"] != "undefined" && isEnabled(data["status"]["mqtt"]) && isEnabled(data["status"]["gc97"]));
                     showStatus();
