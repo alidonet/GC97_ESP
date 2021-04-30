@@ -98,7 +98,7 @@
             vertical-align: middle;
             font-size: 0.9em;
             height: 2.2em;
-            z-index: 2
+            z-index: 2;
         }
 
             #header .icon, #footer .icon {
@@ -653,6 +653,12 @@
 
         /*=== Screen resolution rules ===*/
 
+        @media only screen and (min-width: 1200px) {
+            .gc_case {
+                transform: scale(1.15);
+            }
+        }
+
         @media only screen and (max-width: 800px) {
 
             body {
@@ -666,7 +672,6 @@
             .gc_case {
                 transform: scale(0.95);
             }
-
         }
 
         @media only screen and (max-width: 600px) {
@@ -692,10 +697,12 @@
 <body id="body" class="overlay">
     <div id="overlay"></div>
     <form id="theForm" name="theForm" method="post" enctype="multipart/form-data">
-        <div id="preloader" class="preloader visible"><div class="preloader-box round-box center">
-            <div class="preloader-content"><svg width="3em" height="3em" class="spin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"></path></svg></div>
-            <div id="preloader-text">Loading...</div>
-        </div></div>
+        <div id="preloader" class="preloader visible">
+            <div class="preloader-box round-box center">
+                <div class="preloader-content"><svg width="3em" height="3em" class="spin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"></path></svg></div>
+                <div id="preloader-text">Loading...</div>
+            </div>
+        </div>
         <div id="popup" class="popup round-box center hidden shadow">
             <div id="popup-header">
                 <span id="popup-header-content"></span>
@@ -992,8 +999,17 @@
                 function saveOptions() {
                     var ip = ((theForm.inpMQTT) ? theForm.inpMQTT.value : "");
                     if (!isIP(ip)) {
-                        alert("IP address is not valid!");
-                        theForm.inpMQTT.focus();
+                        var options = {
+                            "title": "Validation",
+                            "x-close": false,
+                            "width": "18em",
+                            "height": "8.5em",
+                            "buttons": "<div id='btnCancel' class='button' style='margin-left:1ex;width:5em' onclick='settings(false); theForm.inpMQTT.focus(); return false;'>OK</div>"
+                        };
+                        var p = popup(true, options);
+                        if ((p)) {
+                            p.innerHTML = "<p align=center><b>Error</b>: IP address is not valid.</p>";
+                        }
                         return false;
                     }
                     var options = {};
@@ -1014,10 +1030,18 @@
                 }
 
                 function reboot() {
-                    if (confirm("Do you really want to reboot the ESP controlled?")) {
-                        loader(true, "Rebooting. Please wait...");
-                        setTimeout(reload, reboot_timeout);
+                    var options = {
+                        "title": "Confirmation",
+                        "x-close": false,
+                        "width": "25em",
+                        "height": "9em",
+                        "buttons": "<div id='btnOK' class='button' style='width:5em' onclick='loader(true, 'Rebooting. Please wait...'); setTimeout(reload, reboot_timeout); return false'>Reboot</div><div id='btnCancel' class='button button_light' style='margin-left:1ex;width:5em' onclick='settings(false); return false;'>Cancel</div>"
+                    };
+                    var p = popup(true, options);
+                    if ((p)) {
+                        p.innerHTML = "<p align=center>Do you really want to reboot the ESP controlled?</p>";
                     }
+                    return false;
                 }
 
                 function safeString(val) {
