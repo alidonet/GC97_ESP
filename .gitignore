@@ -83,3 +83,8 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+
+.vscode
+data/
+buildTime.h
+GC97_ESP.ino
