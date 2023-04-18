@@ -1,8 +1,8 @@
-.vscode
-data/
-src/
 *.h
+*.S
 *.ino
 *tmp*/
 *temp*/
 logs/
+data/
+.vscode/
