@@ -1,6 +1,10 @@
 *.h
 *.S
 *.ino
+*.tmp
+*.temp
+*.old
+*.bak
 *tmp*/
 *temp*/
 logs/
