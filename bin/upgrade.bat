@@ -1,0 +1,1 @@
+curl -F "image=@GC97_ESP.bin" 192.168.0.142/update
