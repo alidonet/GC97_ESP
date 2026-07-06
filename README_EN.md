@@ -7,6 +7,7 @@ Firmware for ESP8266 that turns the GC97 coulometer into a network device with a
 ![GC97 + ESP8266](manual/GC97_ESP.jpg)
 
 [Download the ready-to-flash firmware](bin/GC97_ESP.bin)
+Old firmware binaries are stored in [bin/previous](bin/previous/).
 
 ## Features
 
@@ -109,7 +110,8 @@ Data can be read with regular HTTP requests:
 - `http://<ip>/get/gc97.json` - GC97 data;
 - `http://<ip>/get/esp.json` - ESP status;
 - `http://<ip>/get/state.json` - short state;
-- `http://<ip>/get/device.json` - device description.
+- `http://<ip>/get/device.json` - device description;
+- `http://<ip>/get/logs.json` - logs.
 
 ![JSON data](manual/manual_json.png)
 
@@ -157,26 +159,6 @@ The interface is also adapted for mobile devices.
 ![Network device](manual/manual_gc97_network.png)
 
 ![SSDP properties](manual/manual_ssdp.png)
-
-## Latest Changes
-
-### 260705
-
-- code and connection check optimization;
-- fixes for web server responses under large or frequent requests;
-- improved mobile layout of the web interface;
-- return to a more stable TCP behavior without forced connection resets.
-
-### 250805
-
-- attempt to improve web server responsiveness by controlling TCP connections.
-
-### 241012
-
-- minor cosmetic changes;
-- experiment with `Transfer-Encoding: chunked`.
-
-Old firmware binaries are stored in [bin/previous](bin/previous/).
 
 ## Known Notes
 
